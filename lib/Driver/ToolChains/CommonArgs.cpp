@@ -189,6 +189,15 @@ void tools::AddLinkerInputs(const ToolChain &TC, const InputInfoList &Inputs,
   if (!TC.isCrossCompiling()) {
     addDirectoryList(Args, CmdArgs, "-L", "LIBRARY_PATH");
   }
+
+  if (!TC.isCrossCompiling()) {
+    std::string lib_dir = llvm::sys::path::parent_path(TC.getDriver().Dir).str() + "/lib";
+    CmdArgs.push_back(Args.MakeArgString("-L" + lib_dir));
+
+    auto os = TC.getTriple().getOS();
+    if (os == llvm::Triple::Linux)
+      CmdArgs.push_back(Args.MakeArgString("-rpath=" + lib_dir));
+  }
 }
 
 void tools::AddTargetFeature(const ArgList &Args,
