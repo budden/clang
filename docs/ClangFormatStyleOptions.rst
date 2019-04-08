@@ -1812,6 +1812,13 @@ the configuration (without a prefix: ``Auto``).
      true:                                  false:
      (int) i;                       vs.     (int)i;
 
+**SpaceAfterLogicalNot** (``bool``)
+  If ``true``, a space is inserted after the logical not operator (``!``).
+  .. code-block:: c++
+
+     true:                                  false:
+     ! someExpression();            vs.     !someExpression();
+
 **SpaceAfterTemplateKeyword** (``bool``)
   If ``true``, a space will be inserted after the 'template' keyword.
 
