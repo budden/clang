@@ -2407,6 +2407,20 @@ bool TokenAnnotator::spaceRequiredBetween(const AnnotatedLine &Line,
     return Right.is(tok::hash);
   if (Left.is(tok::l_paren) && Right.is(tok::r_paren))
     return Style.SpaceInEmptyParentheses;
+  if (Style.SpacesAroundConditions) {
+    const auto is_cond_kw = [&](const FormatToken *t) {
+      return t->isOneOf(tok::kw_if, tok::pp_elif, tok::kw_for, tok::kw_while,
+                        tok::kw_switch, tok::kw_constexpr, Keywords.kw_assert,
+                        tok::kw_static_assert, TT_ForEachMacro);
+    };
+    if (Left.is(tok::l_paren) && Left.Previous && is_cond_kw(Left.Previous) )
+      return true;
+    if (Right.is(tok::r_paren) &&
+        Right.MatchingParen &&
+        Right.MatchingParen->Previous &&
+        is_cond_kw(Right.MatchingParen->Previous))
+      return true;
+  }
   if (Left.is(tok::l_paren) || Right.is(tok::r_paren))
     return (Right.is(TT_CastRParen) ||
             (Left.MatchingParen && Left.MatchingParen->is(TT_CastRParen)))
@@ -2792,7 +2806,7 @@ bool TokenAnnotator::spaceRequiredBefore(const AnnotatedLine &Line,
     // The identifier might actually be a macro name such as ALWAYS_INLINE. If
     // this turns out to be too lenient, add analysis of the identifier itself.
     return Right.WhitespaceRange.getBegin() != Right.WhitespaceRange.getEnd();
-  if (Right.is(tok::coloncolon) && !Left.isOneOf(tok::l_brace, tok::comment))
+  if (Right.is(tok::coloncolon) && !Left.isOneOf(tok::l_brace, tok::comment, tok::l_paren))
     return (Left.is(TT_TemplateOpener) &&
             Style.Standard == FormatStyle::LS_Cpp03) ||
            !(Left.isOneOf(tok::l_paren, tok::r_paren, tok::l_square,

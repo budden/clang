@@ -1994,6 +1994,9 @@ the configuration (without a prefix: ``Auto``).
      int a[ 5 ];                    vs.     int a[5];
      std::unique_ptr<int[]> foo() {} // Won't be affected
 
+**SpacesAroundConditions** (``bool``)
+  If ``true``, spaces will be inserted around if/for/while (and similar) conditions.
+
 **Standard** (``LanguageStandard``)
   Format compatible with this standard, e.g. use ``A<A<int> >``
   instead of ``A<A<int>>`` for ``LS_Cpp03``.

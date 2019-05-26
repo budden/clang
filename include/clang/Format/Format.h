@@ -1685,6 +1685,9 @@ struct FormatStyle {
   /// \endcode
   bool SpacesInSquareBrackets;
 
+  /// \brief If ``true``, spaces will be inserted around if/for/while (and similar) conditions.
+  bool SpacesAroundConditions;
+
   /// Supported language standards.
   enum LanguageStandard {
     /// Use C++03-compatible syntax.
@@ -1814,6 +1817,7 @@ struct FormatStyle {
            SpacesInCStyleCastParentheses == R.SpacesInCStyleCastParentheses &&
            SpacesInParentheses == R.SpacesInParentheses &&
            SpacesInSquareBrackets == R.SpacesInSquareBrackets &&
+           SpacesAroundConditions == R.SpacesAroundConditions &&
            Standard == R.Standard && TabWidth == R.TabWidth &&
            StatementMacros == R.StatementMacros && UseTab == R.UseTab;
   }

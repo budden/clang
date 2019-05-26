@@ -470,6 +470,7 @@ template <> struct MappingTraits<FormatStyle> {
                    Style.SpacesInCStyleCastParentheses);
     IO.mapOptional("SpacesInParentheses", Style.SpacesInParentheses);
     IO.mapOptional("SpacesInSquareBrackets", Style.SpacesInSquareBrackets);
+    IO.mapOptional("SpacesAroundConditions", Style.SpacesAroundConditions);
     IO.mapOptional("Standard", Style.Standard);
     IO.mapOptional("StatementMacros", Style.StatementMacros);
     IO.mapOptional("TabWidth", Style.TabWidth);
@@ -705,6 +706,7 @@ FormatStyle getLLVMStyle() {
   LLVMStyle.SpaceBeforeAssignmentOperators = true;
   LLVMStyle.SpaceBeforeCpp11BracedList = false;
   LLVMStyle.SpacesInAngles = false;
+  LLVMStyle.SpacesAroundConditions = false;
 
   LLVMStyle.PenaltyBreakAssignment = prec::Assignment;
   LLVMStyle.PenaltyBreakComment = 300;
