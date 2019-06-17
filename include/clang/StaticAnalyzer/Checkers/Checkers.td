@@ -884,6 +884,10 @@ def ExplodedGraphViewer : Checker<"ViewExplodedGraph">,
   HelpText<"View Exploded Graphs using GraphViz">,
   Documentation<NotDocumented>;
 
+def MainCallChecker : Checker<"MainCall">,
+  HelpText<"Check for calls to main">,
+  Documentation<NotDocumented>;
+
 } // end "debug"
 
 
